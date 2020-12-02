@@ -42,7 +42,7 @@ public struct ACarousel<Data, Content> : View where Data : RandomAccessCollectio
     private let content: (Data.Element) -> Content
     
     private var timer: TimePublisher? = nil
-    @Binding private var focusedItem: Int
+    private var focusedItem: Binding<Int>
     
     @ObservedObject private var aState = AState()
     
