@@ -380,12 +380,12 @@ extension ACarousel.AutoScroll {
 @available(iOS 13.0, OSX 10.15, *)
 final public class AState: ObservableObject {
     
-    public init(activeItem: Int = 1) {
+    init(activeItem: Int = 1) {
         self.activeItem = activeItem
     }
     
     /// The index of the currently active subview.
-    @Published var activeItem: Int = 1
+    @Published public var activeItem: Int = 1
     
     /// Offset x of the view drag.
     @Published var dragOffset: CGFloat = .zero
