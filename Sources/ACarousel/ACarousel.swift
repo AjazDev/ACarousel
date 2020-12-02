@@ -378,7 +378,7 @@ extension ACarousel.AutoScroll {
 
 // MARK: - State
 @available(iOS 13.0, OSX 10.15, *)
-final private class AState: ObservableObject {
+final public class AState: ObservableObject {
     
     init(activeItem: Int = 1) {
         self.activeItem = activeItem
