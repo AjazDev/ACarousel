@@ -42,8 +42,9 @@ public struct ACarousel<Data, Content> : View where Data : RandomAccessCollectio
     private let content: (Data.Element) -> Content
     
     private var timer: TimePublisher? = nil
+    @Binding public var focusedItem: Data.Element
     
-    @ObservedObject public var aState = AState()
+    @ObservedObject private var aState = AState()
     
     public var body: some View {
         GeometryReader { proxy in
@@ -65,7 +66,8 @@ public struct ACarousel<Data, Content> : View where Data : RandomAccessCollectio
         .animation(offsetAnimation)
         .onReceive(timer: timer, perform: receiveTimer)
         .onReceiveAppLifeCycle { aState.isTimerActive = $0 }
-        .onReceive(aState.$activeItem) { _ in
+        .onReceive(aState.$activeItem) { item in
+            focusedItem = item
             offsetChanged(offsetValue(proxy), proxy: proxy)
         }
     }
