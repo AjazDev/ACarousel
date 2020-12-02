@@ -42,7 +42,7 @@ public struct ACarousel<Data, Content> : View where Data : RandomAccessCollectio
     private let content: (Data.Element) -> Content
     
     private var timer: TimePublisher? = nil
-    @Binding public var focusedItem: Data.Element
+    @Binding public var focusedItem: Int
     
     @ObservedObject private var aState = AState()
     
@@ -93,7 +93,7 @@ extension ACarousel {
     ///   - autoScroll: A enum that define view to scroll automatically. See
     ///     ``ACarousel.AutoScroll``. default is `inactive`.
     ///   - content: The view builder that creates views dynamically.
-    public init(_ data: Data, spacing: CGFloat = 10, headspace: CGFloat = 10, sidesScaling: CGFloat = 0.8, isWrap: Bool = false, autoScroll: AutoScroll = .inactive,
+    public init(_ data: Data, focusedItem: Binding<Int>, spacing: CGFloat = 10, headspace: CGFloat = 10, sidesScaling: CGFloat = 0.8, isWrap: Bool = false, autoScroll: AutoScroll = .inactive,
                 @ViewBuilder content: @escaping (Data.Element) -> Content) {
         
         self._data = data.map { $0 }
