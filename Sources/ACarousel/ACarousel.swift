@@ -436,8 +436,8 @@ struct ACarousel_LibraryContent: LibraryContentProvider {
     let Datas = Array(repeating: _Item(color: .red), count: 3)
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(ACarousel(Datas) { _ in }, title: "ACarousel", category: .control)
-        LibraryItem(ACarousel(Datas, spacing: 10, headspace: 10, sidesScaling: 0.8, isWrap: false, autoScroll: .inactive) { _ in }, title: "ACarousel full parameters", category: .control)
+        LibraryItem(ACarousel(Datas, focusedItem: Binding.constant(1)) { _ in }, title: "ACarousel", category: .control)
+        LibraryItem(ACarousel(Datas, focusedItem: Binding.constant(1), spacing: 10, headspace: 10, sidesScaling: 0.8, isWrap: false, autoScroll: .inactive) { _ in }, title: "ACarousel full parameters", category: .control)
     }
     
     struct _Item: Identifiable {
