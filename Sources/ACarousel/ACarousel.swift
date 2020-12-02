@@ -103,7 +103,7 @@ extension ACarousel {
         self._sidesScaling = sidesScaling
         self._autoScroll = autoScroll
         self.content = content
-        self.$focusedItem = focusedItem
+        self.focusedItem = focusedItem
         if !self.isWrap {
             aState = AState(activeItem: 0)
         }
