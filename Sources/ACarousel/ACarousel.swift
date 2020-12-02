@@ -42,9 +42,9 @@ public struct ACarousel<Data, Content> : View where Data : RandomAccessCollectio
     private let content: (Data.Element) -> Content
     
     private var timer: TimePublisher? = nil
-    private var focusedItem: Binding<Int>
+    //private var focusedItem: Binding<Int>
     
-    @ObservedObject private var aState = AState()
+    @ObservedObject public var aState = AState()
     
     public var body: some View {
         GeometryReader { proxy in
@@ -52,7 +52,7 @@ public struct ACarousel<Data, Content> : View where Data : RandomAccessCollectio
         }.clipped()
     }
     
-    private mutating func generateContent(proxy: GeometryProxy) -> some View {
+    private func generateContent(proxy: GeometryProxy) -> some View {
         HStack(spacing: spacing) {
             ForEach(data) {
                 content($0)
@@ -67,7 +67,7 @@ public struct ACarousel<Data, Content> : View where Data : RandomAccessCollectio
         .onReceive(timer: timer, perform: receiveTimer)
         .onReceiveAppLifeCycle { aState.isTimerActive = $0 }
         .onReceive(aState.$activeItem) { item in
-            self.focusedItem = item
+          //  self.focusedItem = item
             offsetChanged(offsetValue(proxy), proxy: proxy)
         }
     }
@@ -93,7 +93,7 @@ extension ACarousel {
     ///   - autoScroll: A enum that define view to scroll automatically. See
     ///     ``ACarousel.AutoScroll``. default is `inactive`.
     ///   - content: The view builder that creates views dynamically.
-    public init(_ data: Data, focusedItem: Binding<Int>, spacing: CGFloat = 10, headspace: CGFloat = 10, sidesScaling: CGFloat = 0.8, isWrap: Bool = false, autoScroll: AutoScroll = .inactive,
+    public init(_ data: Data, spacing: CGFloat = 10, headspace: CGFloat = 10, sidesScaling: CGFloat = 0.8, isWrap: Bool = false, autoScroll: AutoScroll = .inactive,
                 @ViewBuilder content: @escaping (Data.Element) -> Content) {
         
         self._data = data.map { $0 }
@@ -103,7 +103,7 @@ extension ACarousel {
         self._sidesScaling = sidesScaling
         self._autoScroll = autoScroll
         self.content = content
-        self.focusedItem = focusedItem
+        //self.focusedItem = focusedItem
         if !self.isWrap {
             aState = AState(activeItem: 0)
         }
@@ -436,8 +436,8 @@ struct ACarousel_LibraryContent: LibraryContentProvider {
     let Datas = Array(repeating: _Item(color: .red), count: 3)
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(ACarousel(Datas, focusedItem: Binding.constant(1)) { _ in }, title: "ACarousel", category: .control)
-        LibraryItem(ACarousel(Datas, focusedItem: Binding.constant(1), spacing: 10, headspace: 10, sidesScaling: 0.8, isWrap: false, autoScroll: .inactive) { _ in }, title: "ACarousel full parameters", category: .control)
+        LibraryItem(ACarousel(Datas) { _ in }, title: "ACarousel", category: .control)
+        LibraryItem(ACarousel(Datas, spacing: 10, headspace: 10, sidesScaling: 0.8, isWrap: false, autoScroll: .inactive) { _ in }, title: "ACarousel full parameters", category: .control)
     }
     
     struct _Item: Identifiable {
