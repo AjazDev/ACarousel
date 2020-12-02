@@ -42,7 +42,7 @@ public struct ACarousel<Data, Content> : View where Data : RandomAccessCollectio
     private let content: (Data.Element) -> Content
     
     private var timer: TimePublisher? = nil
-    @Binding public var focusedItem: Int
+    @Binding private var focusedItem: Int
     
     @ObservedObject private var aState = AState()
     
@@ -103,7 +103,7 @@ extension ACarousel {
         self._sidesScaling = sidesScaling
         self._autoScroll = autoScroll
         self.content = content
-        
+        self.focusedItem = focusedItem
         if !self.isWrap {
             aState = AState(activeItem: 0)
         }
