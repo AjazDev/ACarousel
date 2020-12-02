@@ -52,7 +52,7 @@ public struct ACarousel<Data, Content> : View where Data : RandomAccessCollectio
         }.clipped()
     }
     
-    private func generateContent(proxy: GeometryProxy) -> some View {
+    private mutating func generateContent(proxy: GeometryProxy) -> some View {
         HStack(spacing: spacing) {
             ForEach(data) {
                 content($0)
@@ -67,7 +67,7 @@ public struct ACarousel<Data, Content> : View where Data : RandomAccessCollectio
         .onReceive(timer: timer, perform: receiveTimer)
         .onReceiveAppLifeCycle { aState.isTimerActive = $0 }
         .onReceive(aState.$activeItem) { item in
-            focusedItem = item
+            self.focusedItem = item
             offsetChanged(offsetValue(proxy), proxy: proxy)
         }
     }
