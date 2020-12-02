@@ -43,7 +43,7 @@ public struct ACarousel<Data, Content> : View where Data : RandomAccessCollectio
     
     private var timer: TimePublisher? = nil
     
-    @ObservedObject private var aState = AState()
+    @ObservedObject public var aState = AState()
     
     public var body: some View {
         GeometryReader { proxy in
